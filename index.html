@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item" id="itemIphone">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button onclick="eventHandler('iphoneValue',false,'phoneValue',1219)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="iphoneValue" type="text" class="form-control text-center" value="1">
+                           <button onclick="eventHandler('iphoneValue',true,'phoneValue',1219)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$<span id="phoneValue">1219</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item" onclick="removeItem('itemIphone')">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item" id="caseItem">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button onclick="eventHandler('casingValue',false,'casingPrice',59)" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="casingValue" type="text" class="form-control text-center" value="1">
+                           <button onclick="eventHandler('casingValue',true,'casingPrice',59)" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$<span id="casingPrice">59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item" onclick="removeItem('caseItem')">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$<span id="totalPrice">1278</span></h5>
+                        <h5>$<span id="taxRate">127</span></h5>
+                        <h5>$<span id="grandTotal">1405</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <script>
+    
+      // var increaseIphone = document.getElementById('increaseIphone');
+      // increaseIphone.addEventListener("click", function () {
+      //    eventHandler(true);
+      // });
+      // var decreaseValue=document.getElementById('decreaseValue');
+      // decreaseValue.addEventListener("click",function(){
+      //    eventHandler(false)
+         
+      // })
+      function eventHandler(myvalue,isIncrease,priceValue,price){
+         var phoneValue = parseInt(document.getElementById(myvalue).value);
+         var newphoneValue = phoneValue;
+         if(isIncrease==true){
+             newphoneValue=newphoneValue+1;
+         }
+         if(isIncrease==false&&newphoneValue > 0){
+            newphoneValue=newphoneValue-1;
+         }
+         document.getElementById(myvalue).value = newphoneValue;
+         
+         const totalPrice = newphoneValue*price;
+         document.getElementById(priceValue).innerText= totalPrice
+         calculateTotal()
+      }
+      function calculateTotal(){
+        const phoneTotalPrice=parseInt(document.getElementById("phoneValue").innerText);
+        const casingTotalPrice=parseInt(document.getElementById("casingPrice").innerText);
+        document.getElementById("totalPrice").innerText=phoneTotalPrice+casingTotalPrice;
+        const tax = (phoneTotalPrice+casingTotalPrice)*0.10;
+        document.getElementById("taxRate").innerText= parseInt(tax);
+        document.getElementById("grandTotal").innerText = phoneTotalPrice+casingTotalPrice+parseInt(tax)
+
+
+      }
+      function removeItem(elementsId){
+         document.getElementById(elementsId).style.display= "none";
+      }
+ 
+   </script>
+</body>
+
+</html>
